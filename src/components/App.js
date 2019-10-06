@@ -3,6 +3,8 @@ import {
   TicTacToeGameStatus,
   getTicTacToeGameStatus
 } from "../BoardStatusChecker";
+import TileCollection from "./TileCollection";
+import ResetButton from "./ResetButton";
 
 export default function App() {
   return <Game />;
@@ -55,131 +57,13 @@ function Game() {
       <GameStatus isGameInProgress={state.isGameInProgress} />
       <br />
       <br />
-      <Tiles board={state.board} onTileClicked={onTileClicked} />
+      <TileCollection board={state.board} onTileClicked={onTileClicked} />
       <br />
       <br />
       <CurrentTurn turn={state.turn} />
       <br />
       <br />
-      <button onClick={resetGame}>Reset Game</button>
-    </div>
-  );
-}
-
-function Tiles(props) {
-  function onTileClicked(cellX, cellY) {
-    props.onTileClicked(cellX, cellY);
-  }
-
-  let style = {
-    borderWidth: "1px",
-    borderStyle: "solid",
-    borderColor: "rgb(128,0,0)"
-  };
-
-  return (
-    <div>
-      <table>
-        <tr>
-          <td style={style}>
-            <Tile
-              cellState={props.board[0][0]}
-              onTileClicked={onTileClicked}
-              cellY={0}
-              cellX={0}
-            />
-          </td>
-          <td style={style}>
-            <Tile
-              cellState={props.board[0][1]}
-              onTileClicked={onTileClicked}
-              cellY={0}
-              cellX={1}
-            />
-          </td>
-          <td style={style}>
-            <Tile
-              cellState={props.board[0][2]}
-              onTileClicked={onTileClicked}
-              cellY={0}
-              cellX={2}
-            />
-          </td>
-        </tr>
-        <tr>
-          <td style={style}>
-            <Tile
-              cellState={props.board[1][0]}
-              onTileClicked={onTileClicked}
-              cellY={1}
-              cellX={0}
-            />
-          </td>
-          <td style={style}>
-            <Tile
-              cellState={props.board[1][1]}
-              onTileClicked={onTileClicked}
-              cellY={1}
-              cellX={1}
-            />
-          </td>
-          <td style={style}>
-            <Tile
-              cellState={props.board[1][2]}
-              onTileClicked={onTileClicked}
-              cellY={1}
-              cellX={2}
-            />
-          </td>
-        </tr>
-        <tr>
-          <td style={style}>
-            <Tile
-              cellState={props.board[2][0]}
-              onTileClicked={onTileClicked}
-              cellY={2}
-              cellX={0}
-            />
-          </td>
-          <td style={style}>
-            <Tile
-              cellState={props.board[2][1]}
-              onTileClicked={onTileClicked}
-              cellY={2}
-              cellX={1}
-            />
-          </td>
-          <td style={style}>
-            <Tile
-              cellState={props.board[2][2]}
-              onTileClicked={onTileClicked}
-              cellY={2}
-              cellX={2}
-            />
-          </td>
-        </tr>
-      </table>
-    </div>
-  );
-}
-
-function Tile(props) {
-  const cellState = props.cellState == "-" ? "" : props.cellState;
-  return (
-    <div
-      style={{
-        width: "50px",
-        height: "50px",
-        textAlign: "center"
-      }}
-      onClick={() => {
-        if (cellState != "") {
-          return;
-        }
-        props.onTileClicked(props.cellX, props.cellY);
-      }}
-    >
-      {cellState}
+      <ResetButton resetGame={resetGame} />
     </div>
   );
 }

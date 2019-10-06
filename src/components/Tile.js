@@ -1,10 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 
 export default function Tile(props) {
-  const [count, setCount] = useState(0);
+  const cellState = props.cellState == "-" ? "" : props.cellState;
   return (
-    <div>
-      <button id="tile" onClick={() => setCount(count + 1)}>{count}</button>
+    <div
+      style={{
+        width: "50px",
+        height: "50px",
+        textAlign: "center"
+      }}
+      onClick={() => {
+        if (cellState != "") {
+          return;
+        }
+        props.onTileClicked(props.cellX, props.cellY);
+      }}
+    >
+      {cellState}
     </div>
   );
 }

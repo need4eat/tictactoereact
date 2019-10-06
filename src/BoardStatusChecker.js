@@ -29,7 +29,10 @@ function isYCompleted(cellY, board) {
 }
 
 function isXCompleted(cellX, board) {
-  if (board[0][cellX] == "-") return false;
+  if (board[0][cellX] == "-") {
+    return false;
+  }
+
   const candidate = board[0][cellX];
   for (let y = 0; y < 3; ++y) {
     if (board[y][cellX] != candidate) return false;

@@ -1,22 +1,36 @@
 import React from "react";
 
 export default function Tile(props) {
-  const cellState = props.cellState == "-" ? "" : props.cellState;
+  const cellText = props.cellState == "-" ? "" : props.cellState;
+
+  const font = {
+    fontFamily: "sans-serif",
+    fontSize: "40px",
+    color: props.cellState == "X" ? "blue" : "red"
+  };
+
+  const layout = {
+    width: "50px",
+    height: "50px",
+    textAlign: "center",
+    verticalAlign: "middle",
+    display: "table-cell"
+  };
+
   return (
     <div
       style={{
-        width: "50px",
-        height: "50px",
-        textAlign: "center"
+        ...layout,
+        ...font
       }}
       onClick={() => {
-        if (cellState != "") {
+        if (cellText != "") {
           return;
         }
         props.onTileClicked(props.cellX, props.cellY);
       }}
     >
-      {cellState}
+      {cellText}
     </div>
   );
 }

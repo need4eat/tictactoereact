@@ -5,6 +5,7 @@ import {
 } from "../BoardStatusChecker";
 import TileCollection from "./TileCollection";
 import ResetButton from "./ResetButton";
+import GameStatusDisplay from "./GameStatusDisplay";
 
 export default function App() {
   return <Game />;
@@ -52,29 +53,21 @@ function Game() {
     setState(startingState);
   }
 
+  const gameState = {
+    isGameInProgress: state.isGameInProgress,
+    nextTurn: state.turn,
+    winner: "-"
+  };
+
   return (
     <div>
-      <GameStatus isGameInProgress={state.isGameInProgress} />
+      <GameStatusDisplay gameState={gameState} />
       <br />
       <br />
       <TileCollection board={state.board} onTileClicked={onTileClicked} />
       <br />
       <br />
-      <CurrentTurn turn={state.turn} />
-      <br />
-      <br />
       <ResetButton resetGame={resetGame} />
     </div>
-  );
-}
-
-function CurrentTurn(props) {
-  return <div>Next Turn: {props.turn}</div>;
-}
-
-function GameStatus(props) {
-  const color = props.isGameInProgress ? "green" : "red";
-  return (
-    <div style={{ color: color, fontSize: "30" }}>&nbsp;&nbsp;&nbsp;⏺</div>
   );
 }

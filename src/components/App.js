@@ -15,7 +15,8 @@ function Game() {
   const startingState = {
     turn: "X",
     board: [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]],
-    isGameInProgress: true
+    isGameInProgress: true,
+    winner: "-"
   };
 
   const [state, setState] = useState(startingState);
@@ -35,9 +36,24 @@ function Game() {
 
     setBoardState(cellX, cellY);
 
-    const gameStatus = getTicTacToeGameStatus(state.board);
+    const gameStatus = getTicTacToeGameStatus(state.board, cellX, cellY);
     if (gameStatus != TicTacToeGameStatus.IN_PROGRESS) {
       state.isGameInProgress = false;
+
+      switch (gameStatus) {
+        case TicTacToeGameStatus.DRAW: {
+          state.winner = "-";
+          break;
+        }
+        case TicTacToeGameStatus.X_WON: {
+          state.winner = "X";
+          break;
+        }
+        case TicTacToeGameStatus.O_WON: {
+          state.winner = "O";
+          break;
+        }
+      }
     }
 
     setNextTurn(state.turn);
@@ -45,7 +61,8 @@ function Game() {
     setState({
       turn: state.turn,
       board: state.board,
-      isGameInProgress: state.isGameInProgress
+      isGameInProgress: state.isGameInProgress,
+      winner: state.winner
     });
   }
 
@@ -56,7 +73,7 @@ function Game() {
   const gameState = {
     isGameInProgress: state.isGameInProgress,
     nextTurn: state.turn,
-    winner: "-"
+    winner: state.winner
   };
 
   return (

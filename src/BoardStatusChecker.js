@@ -5,8 +5,29 @@ export const TicTacToeGameStatus = {
   O_WON: "o won"
 };
 
-export function getTicTacToeGameStatus(board) {
-  if (hasGameEnded(board)) {
+export function getTicTacToeGameStatus(board, cellX, cellY) {
+  const winnerCandidate = board[cellY][cellX];
+  let isGameWon = false;
+
+  if (isYCompleted(cellY, board) | isXCompleted(cellX, board)) {
+    isGameWon = true;
+  }
+
+  if (cellX == cellY && isTopLeftDiagonalCompleted(board)) {
+    isGameWon = true;
+  }
+
+  if (cellX + cellY == 2 && isTopRightDiagonalCompleted(board)) {
+    isGameWon = true;
+  }
+
+  if (isGameWon) {
+    return winnerCandidate == "X"
+      ? TicTacToeGameStatus.X_WON
+      : TicTacToeGameStatus.O_WON;
+  }
+
+  if (hasGameEndedInADraw(board)) {
     return TicTacToeGameStatus.DRAW;
   }
 
@@ -70,27 +91,14 @@ function isTopRightDiagonalCompleted(board) {
   return true;
 }
 
-function hasGameEnded(board) {
-  // Check if somebody won the game
-  for (let i = 0; i < 3; ++i) {
-    if (isYCompleted(i, board) || isXCompleted(i, board)) {
-      return true;
-    }
-  }
-
-  if (isTopLeftDiagonalCompleted(board) || isTopRightDiagonalCompleted(board)) {
-    return true;
-  }
-
-  // Check if the game has ended in a draw
-  let hasGameEndedInADraw = true;
+function hasGameEndedInADraw(board) {
   for (let i = 0; i < 3; ++i) {
     for (let j = 0; j < 3; ++j) {
       if (board[i][j] == "-") {
-        hasGameEndedInADraw = false;
+        return false;
       }
     }
   }
 
-  return hasGameEndedInADraw;
+  return true;
 }

@@ -2,12 +2,15 @@
   "name": "fulljs",
   "version": "1.0.0",
   "description": "",
+  "homepage": "https://need4eat.github.io/tictactoereact/",
   "main": "index.js",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev-server": "nodemon --exec babel-node src/server/server.js --ignore dist/",
     "dev-bundle": "webpack -wd",
-    "prod": "webpack -p"
+    "build": "webpack -p"
   },
   "author": "",
   "license": "ISC",
@@ -28,6 +31,7 @@
     "eslint": "^6.4.0",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^2.1.0",
+    "gh-pages": "^2.1.1",
     "nodemon": "^1.19.2",
     "prettier": "^1.18.2"
   }
